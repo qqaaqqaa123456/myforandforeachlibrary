@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ReportServer" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-1K5QSQ7;Initial Catalog=ReportServer;Integrated Security=True" SettingsObjectName="ConsoleApplication1.Properties.Settings" SettingsPropertyName="ReportServerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="Users">
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Sid" Type="System.Data.Linq.Binary" DbType="VarBinary(85)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="UserType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AuthType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(260)" CanBeNull="true" />
+      <Type Name="History">
+        <Column Name="HistoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+        <Column Name="ReportID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+        <Column Name="SnapshotDataID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+        <Column Name="SnapshotDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+        <Type Name="Batch">
+          <Column Name="BatchID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+          <Column Name="AddedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+          <Column Name="Action" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+          <Column Name="Item" Type="System.String" DbType="NVarChar(425)" CanBeNull="true" />
+          <Column Name="Parent" Type="System.String" DbType="NVarChar(425)" CanBeNull="true" />
+          <Column Name="Param" Type="System.String" DbType="NVarChar(425)" CanBeNull="true" />
+          <Column Name="BoolParam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+          <Column Name="Content" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+          <Column Name="Properties" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+          <Type Name="Class1" IsInheritanceDefault="true">
+            <Column Member="id" AutoSync="OnInsert" Type="System.Int32" IsDbGenerated="true" CanBeNull="false" />
+            <Column Member="text" Type="System.String" CanBeNull="false" IsDelayLoaded="true" />
+            <Association Name="Class2_Class1" Member="Class2" ThisKey="id,text" OtherKey="id,text" Type="Class2" IsForeignKey="true" />
+            <Type Name="Class2">
+              <Column Member="id" AutoSync="OnUpdate" Type="System.Int32" IsDbGenerated="true" CanBeNull="false" />
+              <Column Member="text" Type="System.String" CanBeNull="false" IsDelayLoaded="true" />
+              <Association Name="Class2_Class1" Member="Class1" ThisKey="id,text" OtherKey="id,text" Type="Class1" />
+            </Type>
+          </Type>
+        </Type>
+      </Type>
+    </Type>
+  </Table>
+</Database>
